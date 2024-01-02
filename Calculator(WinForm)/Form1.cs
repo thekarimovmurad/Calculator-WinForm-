@@ -136,10 +136,5 @@ namespace Calculator_WinForm_
         {
             value=-value;
         }
-
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
-
-        }
     }
 }
