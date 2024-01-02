@@ -12,6 +12,10 @@ namespace Calculator_WinForm_
 {
     public partial class Form1 : Form
     {
+        double? value;
+        double result =0 ;
+        string sing;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,7 +25,6 @@ namespace Calculator_WinForm_
         {
 
         }
-
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -62,6 +65,7 @@ namespace Calculator_WinForm_
         {
             textBox1.Text = textBox1.Text + "8";
         }
+
         private void button9_Click(object sender, EventArgs e)
         {
             textBox1.Text = textBox1.Text + "9";
@@ -71,9 +75,10 @@ namespace Calculator_WinForm_
         {
             textBox1.Text = textBox1.Text + "0";
         }
+
         private void button11_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "";
+            textBox1.Text = textBox1.Text + ".";
         }
 
         private void button12_Click(object sender, EventArgs e)
@@ -83,41 +88,58 @@ namespace Calculator_WinForm_
 
         private void button13_Click(object sender, EventArgs e)
         {
-            textBox1.Text = textBox1.Text + "3";
+            textBox1.Text = textBox1.Text.Remove((textBox1.Text.Length - 1), 1);
         }
 
         private void button14_Click(object sender, EventArgs e)
         {
-            textBox1.Text = textBox1.Text + "4";
+            textBox1.Text = "bolme";
         }
 
         private void button15_Click(object sender, EventArgs e)
         {
-            textBox1.Text = textBox1.Text + "5";
+            textBox1.Text = "vurma";
         }
 
         private void button16_Click(object sender, EventArgs e)
         {
-            textBox1.Text = textBox1.Text + "6";
+            textBox1.Text = value.ToString();
         }
 
         private void button17_Click(object sender, EventArgs e)
         {
-            textBox1.Text = textBox1.Text + "7";
+            if(value == null)
+            {
+                value = Double.Parse(textBox1.Text);
+            }
+            else
+            {
+                value += value;
+            }
+            textBox1.Text = "";
         }
 
         private void button18_Click(object sender, EventArgs e)
         {
-            textBox1.Text = textBox1.Text + "8";
-        }
-        private void button19_Click(object sender, EventArgs e)
-        {
-            textBox1.Text = textBox1.Text + "9";
+            if (value == null)
+            {
+                value = Double.Parse(textBox1.Text);
+            }
+            else
+            {
+                value -= value;
+            }
+            textBox1.Text = "";
         }
 
-        private void button20_Click(object sender, EventArgs e)
+        private void button19_Click(object sender, EventArgs e)
         {
-            textBox1.Text = textBox1.Text + "0";
+            value=-value;
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }
