@@ -7,14 +7,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace Calculator_WinForm_
 {
     public partial class Form1 : Form
     {
         double? value;
-        double result =0 ;
-        string sing;
+        double? result;
+        string operation;
 
         public Form1()
         {
@@ -26,6 +27,7 @@ namespace Calculator_WinForm_
 
         }
 
+        #region Numbers
         private void button1_Click(object sender, EventArgs e)
         {
             textBox1.Text = textBox1.Text + "1";
@@ -80,16 +82,20 @@ namespace Calculator_WinForm_
         {
             textBox1.Text = textBox1.Text + ".";
         }
+        #endregion
 
+        #region Clear
         private void button12_Click(object sender, EventArgs e)
         {
             textBox1.Text = "";
+            value = 0;
         }
 
         private void button13_Click(object sender, EventArgs e)
         {
             textBox1.Text = textBox1.Text.Remove((textBox1.Text.Length - 1), 1);
         }
+        #endregion
 
         private void button14_Click(object sender, EventArgs e)
         {
@@ -103,38 +109,48 @@ namespace Calculator_WinForm_
 
         private void button16_Click(object sender, EventArgs e)
         {
-            textBox1.Text = value.ToString();
+            textBox1.Text = "cixma";
         }
 
         private void button17_Click(object sender, EventArgs e)
         {
-            if(value == null)
-            {
-                value = Double.Parse(textBox1.Text);
-            }
-            else
-            {
-                value += value;
-            }
+            value = Double.Parse(textBox1.Text);
             textBox1.Text = "";
+            operation = "+";
+            Opreation(result, value, operation);
         }
 
         private void button18_Click(object sender, EventArgs e)
         {
-            if (value == null)
-            {
-                value = Double.Parse(textBox1.Text);
-            }
-            else
-            {
-                value -= value;
-            }
-            textBox1.Text = "";
+            textBox1.Text = value.ToString();
         }
 
         private void button19_Click(object sender, EventArgs e)
         {
-            value=-value;
+            value = -value;
+        }
+
+
+        public void Opreation(double? result ,double? value, string operation)
+        {
+            if(operation == "+")
+            {
+                result = (Double)(result + value);
+            }
+            else if(operation == "-")
+            {
+                result = (Double)(result - value);
+            }
+            else if(operation == "*")
+            {
+                result = (Double)(result * value);
+            }
+            else if(operation == "/")
+            {
+                result = (Double)(result / value);
+            }
+            label2.Text = result.ToString();
+            label1.Text = operation;
         }
     }
 }
