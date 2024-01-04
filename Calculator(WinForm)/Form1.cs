@@ -109,7 +109,11 @@ namespace Calculator_WinForm_
 
         private void button16_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "cixma";
+            //textBox1.Text = "cixma";
+            value = Double.Parse(textBox1.Text);
+            textBox1.Text = "";
+            operation = "-";
+            Operation(value, operation);
         }
 
         private void button17_Click(object sender, EventArgs e)
@@ -117,7 +121,7 @@ namespace Calculator_WinForm_
             value = Double.Parse(textBox1.Text);
             textBox1.Text = "";
             operation = "+";
-            Opreation(result, value, operation);
+            Operation(value, operation);
         }
 
         private void button18_Click(object sender, EventArgs e)
@@ -130,27 +134,73 @@ namespace Calculator_WinForm_
             value = -value;
         }
 
-
-        public void Opreation(double? result ,double? value, string operation)
+        public void Operation(double? value, string operation)
         {
-            if(operation == "+")
+            string LastOperation = label1.Text;
+            double currentValue;
+            if (Double.TryParse(label2.Text, out currentValue))
             {
-                result = (Double)(result + value);
+                if (result == null)
+                {
+                    result = value;
+                }
+                else
+                {
+                    if (LastOperation == "+")
+                        result = (double)(result + value);
+                    else if (LastOperation == "-")
+                        result = (double)(result - value);
+                    else if (LastOperation == "*")
+                        result = (double)(result * value);
+                    else if (LastOperation == "/")
+                    {
+                        if (value != 0)
+                            result = (double)(result / value);
+                        else
+                        {
+                            // Handle division by zero
+                            label2.Text = "Error";
+                            return;
+                        }
+                    }
+                }
+                label2.Text = result.ToString();
+                label1.Text = operation;
             }
-            else if(operation == "-")
+            else
             {
-                result = (Double)(result - value);
+                // Handle parsing error
+                label2.Text = "Error";
             }
-            else if(operation == "*")
-            {
-                result = (Double)(result * value);
-            }
-            else if(operation == "/")
-            {
-                result = (Double)(result / value);
-            }
-            label2.Text = result.ToString();
-            label1.Text = operation;
         }
+        //public void Opreation(double? value, string operation)
+        //{
+        //    double currentValue;
+        //    string LastOperation = label1.Text;
+        //    if (Double.TryParse(label2.Text, out currentValue))
+        //    {
+        //        if (result == null)
+        //        {
+        //            result = (double)value;
+        //        }
+        //        else
+        //        {
+        //            if (LastOperation == "+")
+        //                result = (double)(result + value);
+        //            else if (LastOperation == "-")
+        //                result = (double)(result - value);
+        //            else if (LastOperation == "*")
+        //                result = (double)(result * value);
+        //            else if (LastOperation == "/")
+        //                result = (double)(result / value);
+        //        }
+        //        label2.Text = result.ToString();
+        //        label1.Text = operation;
+        //    }
+        //    else
+        //    {
+        //        textBox1.Text = "Error";
+        //    }
+        //}
     }
 }
