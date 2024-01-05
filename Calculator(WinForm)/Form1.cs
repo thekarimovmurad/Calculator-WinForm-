@@ -99,12 +99,20 @@ namespace Calculator_WinForm_
 
         private void button14_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "bolme";
+            //textBox1.Text = "bolme";
+            value = Double.Parse(textBox1.Text);
+            textBox1.Text = "";
+            operation = "/";
+            Operation(value, operation);
         }
 
         private void button15_Click(object sender, EventArgs e)
         {
-            textBox1.Text = "vurma";
+            //textBox1.Text = "vurma";
+            value = Double.Parse(textBox1.Text);
+            textBox1.Text = "";
+            operation = "*";
+            Operation(value, operation);
         }
 
         private void button16_Click(object sender, EventArgs e)
@@ -118,6 +126,7 @@ namespace Calculator_WinForm_
 
         private void button17_Click(object sender, EventArgs e)
         {
+            //textBox1.Text = "toplama";
             value = Double.Parse(textBox1.Text);
             textBox1.Text = "";
             operation = "+";
@@ -126,7 +135,11 @@ namespace Calculator_WinForm_
 
         private void button18_Click(object sender, EventArgs e)
         {
-            textBox1.Text = value.ToString();
+            value = Double.Parse(textBox1.Text);
+            Operation(value, operation);
+            textBox1.Text = label2.Text;
+            label1.Text = "";
+            label2.Text = "";
         }
 
         private void button19_Click(object sender, EventArgs e)
@@ -136,71 +149,28 @@ namespace Calculator_WinForm_
 
         public void Operation(double? value, string operation)
         {
-            string LastOperation = label1.Text;
-            double currentValue;
-            if (Double.TryParse(label2.Text, out currentValue))
+            string lastOperation = label1.Text;
+            if (!string.IsNullOrWhiteSpace(label2.Text))
             {
-                if (result == null)
+                if (double.TryParse(label2.Text, out double tempRes))
                 {
-                    result = value;
+                    if (lastOperation == "+")
+                        result = (double)(tempRes + value);
+                    else if (lastOperation == "-")
+                        result = (double)(tempRes - value);
+                    else if (lastOperation == "*")
+                        result = (double)(tempRes * value);
+                    else if (lastOperation == "/")
+                        result = (double)(tempRes / value);
                 }
-                else
-                {
-                    if (LastOperation == "+")
-                        result = (double)(result + value);
-                    else if (LastOperation == "-")
-                        result = (double)(result - value);
-                    else if (LastOperation == "*")
-                        result = (double)(result * value);
-                    else if (LastOperation == "/")
-                    {
-                        if (value != 0)
-                            result = (double)(result / value);
-                        else
-                        {
-                            // Handle division by zero
-                            label2.Text = "Error";
-                            return;
-                        }
-                    }
-                }
-                label2.Text = result.ToString();
-                label1.Text = operation;
+
             }
             else
             {
-                // Handle parsing error
-                label2.Text = "Error";
+                result = value;
             }
+            label2.Text = result.ToString();
+            label1.Text = operation;
         }
-        //public void Opreation(double? value, string operation)
-        //{
-        //    double currentValue;
-        //    string LastOperation = label1.Text;
-        //    if (Double.TryParse(label2.Text, out currentValue))
-        //    {
-        //        if (result == null)
-        //        {
-        //            result = (double)value;
-        //        }
-        //        else
-        //        {
-        //            if (LastOperation == "+")
-        //                result = (double)(result + value);
-        //            else if (LastOperation == "-")
-        //                result = (double)(result - value);
-        //            else if (LastOperation == "*")
-        //                result = (double)(result * value);
-        //            else if (LastOperation == "/")
-        //                result = (double)(result / value);
-        //        }
-        //        label2.Text = result.ToString();
-        //        label1.Text = operation;
-        //    }
-        //    else
-        //    {
-        //        textBox1.Text = "Error";
-        //    }
-        //}
     }
 }
