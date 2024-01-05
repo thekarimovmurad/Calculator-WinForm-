@@ -20,11 +20,24 @@ namespace Calculator_WinForm_
         public Form1()
         {
             InitializeComponent();
+            textBox1.KeyPress += TextBox1_KeyPress;
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
 
+        }
+        private void TextBox1_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && (e.KeyChar != '.'))
+            {
+                e.Handled = true;
+            }
+
+            if ((e.KeyChar == '.') && ((sender as System.Windows.Forms.TextBox).Text.IndexOf('.') > -1))
+            {
+                e.Handled = true;
+            }
         }
 
         #region Numbers
